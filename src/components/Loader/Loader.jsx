@@ -1,6 +1,6 @@
 import classes from "./Loader.module.css";
 import {motion} from 'framer-motion';
-const Loader = () => {
+const Loader = ({setLoading}) => {
     const h1variants = {
         initial:{
             opacity:0,
@@ -26,11 +26,20 @@ const Loader = () => {
             transition:{duration:1,ease:"easeOut",delay:2.2}
         }
     }
+
+    const handleAnimationComplete = () => {
+        let timer = setTimeout(()=>{
+            console.log("providing a delay of 1 second");
+            setLoading();
+        },200)
+        // clearTimeout(timer);
+    }
     return(
         <motion.div 
         variants={containerVariants}
         initial="initial"
         animate="animate"
+        onAnimationComplete={handleAnimationComplete}
         className={classes.loader}>
             <motion.h1
             variants={h1variants}

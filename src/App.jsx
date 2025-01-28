@@ -11,17 +11,17 @@ function App() {
     setloading((prevState) => !prevState);
   }
 
-  useEffect(()=> {
-    let timer = setTimeout(()=>{
-      changeLoading();
-    },3600)
-    return ()=> {
-      clearTimeout(timer);
-    }
-  },[])
+  // useEffect(()=> {
+  //   let timer = setTimeout(()=>{
+  //     changeLoading();
+  //   },3600)
+  //   return ()=> {
+  //     clearTimeout(timer);
+  //   }
+  // },[])
   return (
             <div style={{backgroundColor:"black",height:"100vh",width:"100%",overflow:"hidden"}}>
-              {<Loader/>}
+              {<Loader setLoading={changeLoading}/>}
               {loading && <MainSection/>}
               {/* <Example/> */}
             </div>

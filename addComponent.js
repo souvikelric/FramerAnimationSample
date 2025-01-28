@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs/promises";
+import sync_fs from "fs";
 import {fileURLToPath} from "node:url";
 const fileName = fileURLToPath(import.meta.url);
 const base_dir = path.dirname(fileName);
@@ -12,8 +13,12 @@ const ex_paths = path.parse(base_dir);
 // gets the current directory from where the command is being run
 // console.log(process.env.INIT_CWD);
 
-// gets the directory in which the test script resides
-// console.log(base_dir);
+//gets the directory in which the test script resides
+console.log(base_dir);
+let extension = "jsx";
+if(sync_fs.existsSync(path.resolve(base_dir,"tsconfig.json"))){
+    extension = "tsx";
+}
 
 // resolves to an object as follows :
 // {
@@ -46,7 +51,7 @@ if(argsList.length > 0){
 
     async function createFile(){
         try{
-        await fs.writeFile(`${componentPath}/${componentFolder}.jsx`,"let x = 0");
+        await fs.writeFile(`${componentPath}/${componentFolder}.${extension}`,"let x = 0");
         await fs.writeFile(`${componentPath}/${componentFolder}.module.css`,"");
         console.log("required files created")
         }
